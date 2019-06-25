@@ -1,0 +1,62 @@
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css">
+</head>
+<body ng-app="inputBasicDemo" ng-cloak md-theme="docs-dark">
+<md-content ng-controller="DemoCtrl" layout-fill layout-align="center center" flex>
+    <form layout-fill name="projectForm">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Calcular constante elastica da mola</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <div layout="row" flex>
+                    <md-input-container  flex>
+                        <label>Digite a altura que está no marcador(cm)</label>
+                        <input name="h" ng-model="h">
+                    </md-input-container>
+                </div>
+                <div ng-if="k">
+                    <p>A constante elastica da mola é: {{k}}N/m</p>
+                </div>
+            </md-card-content>
+            <md-card-actions layout="column" layout-align="start">
+                <md-button type="submit" class="md-raised" ng-click="calculateElasticConst()">Calcular</md-button>
+            </md-card-actions>
+        </md-card>
+    </form>
+</md-content>
+
+<!-- Angular Material requires Angular.js Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+
+<!-- Angular Material Library -->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+
+<!-- Your application bootstrap  -->
+<script type="text/javascript">
+    angular
+        .module('inputBasicDemo', ['ngMaterial', 'ngMessages'])
+        .controller('DemoCtrl', function($scope) {
+            $scope.calculateElasticConst = function () {
+                $scope.h=$scope.h/100;
+                $scope.k = (2*0.0092*9.81*$scope.h)/(0.01*0.01);
+                console.log($scope.h);
+                $scope.h=""
+            }
+        })
+        .config(function($mdThemingProvider) {
+            $mdThemingProvider.theme('docs-dark', 'default')
+                .dark();
+        });
+</script>
+
+</body>
+</html>
